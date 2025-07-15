@@ -17,12 +17,13 @@ def manage_proxy():
             stdout=subprocess.DEVNULL,  # 丢弃输出
             stderr=subprocess.DEVNULL
         )
-        print("[*] mitmproxy 已启动 (PID: %d)" % mitm_process.pid)
+        print("[*] 抓包已启动 (PID: %d)" % mitm_process.pid)
         
         # 等待抓包完成标志
         while True:
             if os.path.exists(FLAG_FILE):
                 print("[+] 检测到抓包完成标志")
+                print("[+] 篡改完毕")
                 os.remove(FLAG_FILE)  # 清理标志
                 break
             time.sleep(1)
@@ -31,7 +32,7 @@ def manage_proxy():
         # 终止 mitmproxy
         if mitm_process and mitm_process.poll() is None:
             mitm_process.terminate()
-            print("[*] mitmproxy 已终止")
+            print("[*] 抓包已终止")
 
 def check_window():
     while True:
